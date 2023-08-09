@@ -1,15 +1,30 @@
 package main
 
 import (
-	"fmt"
-	"github.com/hakusai22/douyin/config"
-	"github.com/hakusai22/douyin/router"
+	"TikTokLite/common"
+	"TikTokLite/config"
+	"TikTokLite/log"
+	"TikTokLite/minioStore"
+	"TikTokLite/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := router.InitDouyinRouter()
-	err := r.Run(fmt.Sprintf(":%d", config.Info.Port)) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-	if err != nil {
-		return
-	}
+	Init()
+	defer common.CloseDataBase()
+	defer common.CloseRedis()
+	defer log.Sync()
+
+	r := gin.Default()
+	r = routes.SetRoute(r)
+	r.Run()
+}
+
+func Init() {
+	config.LoadConfig()
+	log.InitLog()
+	common.InitDatabase()
+	minioStore.InitMinio()
+	common.RedisInit()
 }
