@@ -2,9 +2,9 @@
 [mysql]
 host = "127.0.0.1"
 port = 3306
-database = "douyin"
+database = "minitok"
 username = "root"
-password = "12345678"
+password = "3356"
 charset = "utf8mb4"
 parse_time = true
 loc = "Local"
@@ -22,5 +22,5 @@ port = 8080
 
 # 用于保存资源的路径，以及用于截图工具的路径（截图工具放在lib目录
 [path]
-ffmpeg_path = "/opt/homebrew/bin/ffmpeg"
-static_source_path = "/Users/yinpeng/GoWorkSpace/douyin/static"
+ffmpeg_path = "/usr/bin/ffmpeg"
+static_source_path = "/home/Levi/Downloads/static"

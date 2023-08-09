@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/hakusai22/douyin/config"
 	"log"
-	"unsafe"
 )
 
 type Video2Image struct {
@@ -26,7 +25,7 @@ func NewVideo2Image() *Video2Image {
 
 var videoChanger Video2Image
 
-//ffmpeg的参数
+// ffmpeg的参数
 const (
 	inputVideoPathOption = "-i"
 	startTimeOption      = "-ss"
@@ -90,11 +89,11 @@ func (v *Video2Image) ExecCommand(cmd string) error {
 	if v.debug {
 		log.Println(cmd)
 	}
-	cCmd := C.CString(cmd)
-	defer C.free(unsafe.Pointer(cCmd))
-	status := C.startCmd(cCmd)
-	if status != 0 {
-		return errors.New("视频切截图失败")
-	}
+	//cCmd := C.CString(cmd)
+	//defer C.free(unsafe.Pointer(cCmd))
+	//status := C.startCmd(cCmd)
+	//if status != 0 {
+	//	return errors.New("视频切截图失败")
+	//}
 	return nil
 }
