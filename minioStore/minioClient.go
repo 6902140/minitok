@@ -9,6 +9,8 @@ import (
 	"strings"
 )
 
+//封装了与 MinIO 相关的配置和客户端对象，方便在代码中使用和管理。
+
 type Minio struct {
 	MinioClient  *minio.Client
 	endpoint     string
@@ -32,19 +34,22 @@ func InitMinio() {
 	secretAccessKey := conf.Minio.SecretAccessKey
 	videoBucket := conf.Minio.Videobuckets
 	picBucket := conf.Minio.Picbuckets
-	useSSL := false
+	//useSSL := false
+	//读取配置信息
 
 	// 初使化 minio client对象。
-	minioClient, err := minio.New(endpoint, accessKeyID, secretAccessKey, useSSL)
+	minioClient, err := minio.New(endpoint, accessKeyID, secretAccessKey, false) //默认`不使用ssl，如果需要使用，请将openSSL改为true
 	if err != nil {
 		log.Error(err)
 	}
-	//创建存储桶
+
+	//创建存储桶 一个用来存储上传视频 另外一个用于存储图片文件
 	creatBucket(minioClient, videoBucket)
 	creatBucket(minioClient, picBucket)
 	client = Minio{minioClient, endpoint, port, videoBucket, picBucket}
 }
 
+// 制作存储桶的函数 m是Client的指针 bucket是桶的名字
 func creatBucket(m *minio.Client, bucket string) {
 	// log.Debug("bucketname", bucket)
 	found, err := m.BucketExists(bucket)
@@ -52,7 +57,10 @@ func creatBucket(m *minio.Client, bucket string) {
 		log.Errorf("check %s bucketExists err:%s", bucket, err.Error())
 	}
 	if !found {
-		m.MakeBucket(bucket, "us-east-1")
+		err := m.MakeBucket(bucket, "us-east-1")
+		if err != nil {
+			return
+		}
 	}
 	//设置桶策略
 	policy := `{"Version": "2012-10-17",

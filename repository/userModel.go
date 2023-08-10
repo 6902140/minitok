@@ -73,7 +73,7 @@ func GetUserInfo(u interface{}) (User, error) {
 	db := common.GetDB()
 	user := User{}
 	var err error
-	switch u := u.(type) {
+	switch u := u.(type) { // 根据传入的参数类型进行不同的查询
 	case int64:
 		user, err = CacheGetUser(u)
 		if err == nil {

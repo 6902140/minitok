@@ -16,9 +16,9 @@ func main() {
 	defer log.Sync()
 
 	MinitokInit() //初始化项目
-	r := gin.Default()
-	r = routes.SetRoute(r)
-	r.Run()
+	rou := gin.Default()
+	rou = routes.SetRoute(rou)
+	rou.Run()
 }
 
 func MinitokInit() {

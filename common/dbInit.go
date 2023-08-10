@@ -1,4 +1,4 @@
-// package repository
+// 用于初始化数据库
 package common
 
 import (
@@ -13,6 +13,7 @@ import (
 var DataBase *gorm.DB
 
 func InitDatabase() {
+	//初始化数据库链接
 	var err error
 	conf := config.GetConfig()
 	host := conf.Mysql.Host
@@ -20,23 +21,26 @@ func InitDatabase() {
 	database := conf.Mysql.Database
 	username := conf.Mysql.Username
 	password := conf.Mysql.Password
-	args := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=true",
-		username,
-		password,
-		host,
-		port,
-		database)
-	log.Info(args)
+	//拼接dsn
+	args := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=true", username, password, host, port, database)
+
+	log.Info("try to open DSN: " + args)
+	//使用orm框架对数据库进行链接
 	DataBase, err = gorm.Open("mysql", args)
 	if err != nil {
 		panic("failed to connect database ,err:" + err.Error())
 	}
-	log.Infof("connect database success,user:%s,database:%s", username, database)
+
+	log.Infof("DATABASE CONNECTED SUCCESSFULLY,USERNAME:%s,DATABASE:%s", username, database)
+}
+
+func CloseDataBase() {
+	err := DataBase.Close()
+	if err != nil {
+		return
+	}
 }
 
 func GetDB() *gorm.DB {
 	return DataBase
-}
-func CloseDataBase() {
-	DataBase.Close()
 }
