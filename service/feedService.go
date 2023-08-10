@@ -1,9 +1,9 @@
 package service
 
 import (
-	"TikTokLite/proto/pkg"
-	"TikTokLite/repository"
-	"TikTokLite/util"
+	"minitok/proto/pkg"
+	"minitok/repository"
+	"minitok/util"
 )
 
 func GetFeedList(currentTime, tokenUserId int64) (*message.DouyinFeedResponse, error) {

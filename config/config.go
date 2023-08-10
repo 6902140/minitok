@@ -1,8 +1,8 @@
 package config
 
 import (
-	"TikTokLite/util"
 	"github.com/spf13/viper"
+	"minitok/util"
 )
 
 type MysqlConfig struct {

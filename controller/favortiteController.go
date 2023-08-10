@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"TikTokLite/log"
-	"TikTokLite/response"
-	"TikTokLite/service"
+	"minitok/log"
+	"minitok/response"
+	"minitok/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -21,7 +21,7 @@ type FavListParams struct {
 	UserId int64  `form:"user_id" binding:"required"`
 }
 
-//点赞视频
+// 点赞视频
 func FavoriteAction(ctx *gin.Context) {
 	var favInfo FavActionParams
 	err := ctx.ShouldBindQuery(&favInfo)
@@ -46,7 +46,7 @@ func FavoriteAction(ctx *gin.Context) {
 	response.Success(ctx, "success", nil)
 }
 
-//获取点赞列表
+// 获取点赞列表
 func GetFavoriteList(ctx *gin.Context) {
 
 	UserId := ctx.Query("user_id")

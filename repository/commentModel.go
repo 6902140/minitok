@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"TikTokLite/common"
-	"TikTokLite/log"
 	"encoding/json"
+	"minitok/common"
+	"minitok/log"
 	"strconv"
 	"time"
 )

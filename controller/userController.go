@@ -1,15 +1,15 @@
 package controller
 
 import (
-	"TikTokLite/log"
-	"TikTokLite/response"
-	"TikTokLite/service"
+	"minitok/log"
+	"minitok/response"
+	"minitok/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-//用户登录
+// 用户登录
 func UserLogin(ctx *gin.Context) {
 	var err error
 	userName := ctx.Query("username")
@@ -45,7 +45,7 @@ func UserRegister(ctx *gin.Context) {
 
 }
 
-//获取用户信息
+// 获取用户信息
 func GetUserInfo(ctx *gin.Context) {
 
 	var err error

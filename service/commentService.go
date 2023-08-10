@@ -1,9 +1,9 @@
 package service
 
 import (
-	"TikTokLite/log"
-	message "TikTokLite/proto/pkg"
-	"TikTokLite/repository"
+	"minitok/log"
+	message "minitok/proto/pkg"
+	"minitok/repository"
 )
 
 func CommentAction(commentId, videoId, userId int64, comment_text, actionType string) (*message.DouyinCommentActionResponse, error) {
@@ -39,7 +39,7 @@ func CommentAction(commentId, videoId, userId int64, comment_text, actionType st
 
 }
 
-//用户评论
+// 用户评论
 func CommentList(videoId int64) (*message.DouyinCommentListResponse, error) {
 	comments, err := repository.CommentList(videoId)
 	if err != nil {

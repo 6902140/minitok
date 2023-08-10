@@ -1,11 +1,11 @@
 package common
 
 import (
-	"TikTokLite/config"
-	"TikTokLite/log"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"minitok/config"
+	"minitok/log"
 	"time"
 
 	"github.com/go-redsync/redsync/v4"

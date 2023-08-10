@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"TikTokLite/common"
-	"TikTokLite/log"
 	"errors"
+	"minitok/common"
+	"minitok/log"
 	"strconv"
 
 	"github.com/jinzhu/gorm"

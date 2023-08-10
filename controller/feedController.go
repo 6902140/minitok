@@ -1,16 +1,16 @@
 package controller
 
 import (
-	"TikTokLite/response"
-	"TikTokLite/service"
-	"TikTokLite/util"
+	"minitok/response"
+	"minitok/service"
+	"minitok/util"
 	"strconv"
 
 	// "encoding/json"
 	"github.com/gin-gonic/gin"
 )
 
-//视频流
+// 视频流
 func Feed(ctx *gin.Context) {
 	var userId int64
 	currentTime, err := strconv.ParseInt(ctx.Query("latest_time"), 10, 64)

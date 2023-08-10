@@ -1,9 +1,9 @@
 package common
 
 import (
-	"TikTokLite/log"
-	"TikTokLite/response"
 	"errors"
+	"minitok/log"
+	"minitok/response"
 
 	"github.com/golang-jwt/jwt/v4"
 
@@ -21,7 +21,7 @@ type JWTClaims struct {
 	jwt.RegisteredClaims
 }
 
-//生成token
+// 生成token
 func GenToken(userid int64, userName string) (string, error) {
 	claims := JWTClaims{
 		UserId:   userid,
@@ -39,7 +39,7 @@ func GenToken(userid int64, userName string) (string, error) {
 	return signedToken, nil
 }
 
-//解析token
+// 解析token
 func ParsenToken(tokenString string) (*JWTClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &JWTClaims{}, func(token *jwt.Token) (i interface{}, err error) {
 		return Secret, nil
@@ -53,7 +53,7 @@ func ParsenToken(tokenString string) (*JWTClaims, error) {
 	return nil, errors.New("invalid token")
 }
 
-//验证token
+// 验证token
 func VerifyToken(tokenString string) (int64, error) {
 
 	log.Debugf("tokenString:%v", tokenString)
@@ -89,7 +89,7 @@ func AuthMiddleware() gin.HandlerFunc {
 	}
 }
 
-//部分接口不需要用户登录也可访问，如feed，pushlishlist，favList，follow/follower list
+// 部分接口不需要用户登录也可访问，如feed，pushlishlist，favList，follow/follower list
 func AuthWithOutMiddleware() gin.HandlerFunc {
 
 	return func(c *gin.Context) {

@@ -1,8 +1,8 @@
 package log
 
 import (
-	"TikTokLite/config"
-	"TikTokLite/util"
+	"minitok/config"
+	"minitok/util"
 	"os"
 
 	"go.uber.org/zap"

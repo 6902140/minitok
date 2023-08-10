@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"TikTokLite/common"
 	"errors"
+	"minitok/common"
 
 	"github.com/jinzhu/gorm"
 )

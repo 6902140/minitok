@@ -1,19 +1,19 @@
 package controller
 
 import (
-	"TikTokLite/config"
-	"TikTokLite/log"
-	"TikTokLite/response"
-	"TikTokLite/service"
-	"TikTokLite/util"
 	"fmt"
+	"minitok/config"
+	"minitok/log"
+	"minitok/response"
+	"minitok/service"
+	"minitok/util"
 	"path/filepath"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-//视频发布
+// 视频发布
 func PublishAction(ctx *gin.Context) {
 	// publishResponse := &message.DouyinPublishActionResponse{}
 	userId, _ := ctx.Get("UserId")
@@ -48,7 +48,7 @@ func PublishAction(ctx *gin.Context) {
 
 }
 
-//获取视频列表
+// 获取视频列表
 func GetPublishList(ctx *gin.Context) {
 	tokenUserId, _ := ctx.Get("UserId")
 	id := ctx.Query("user_id")

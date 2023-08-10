@@ -1,8 +1,8 @@
 package response
 
 import (
-	"TikTokLite/log"
 	"github.com/gin-gonic/gin"
+	"minitok/log"
 	"reflect"
 )
 

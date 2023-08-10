@@ -1,10 +1,10 @@
 package minioStore
 
 import (
-	"TikTokLite/config"
-	"TikTokLite/log"
-	"TikTokLite/util"
 	"github.com/minio/minio-go/v6"
+	"minitok/config"
+	"minitok/log"
+	"minitok/util"
 	"strconv"
 	"strings"
 )

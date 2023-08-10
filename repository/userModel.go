@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"TikTokLite/common"
-	"TikTokLite/log"
 	"encoding/json"
+	"minitok/common"
+	"minitok/log"
 	"strconv"
 
 	"errors"
@@ -30,7 +30,7 @@ func (User) TableName() string {
 	return "users"
 }
 
-//检查该用户名是否已经存在
+// 检查该用户名是否已经存在
 func UserNameIsExist(userName string) error {
 	db := common.GetDB()
 	user := User{}
@@ -43,7 +43,7 @@ func UserNameIsExist(userName string) error {
 	return nil
 }
 
-//创建用户
+// 创建用户
 func InsertUser(userName, password string) (*User, error) {
 	db := common.GetDB()
 	hasedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
@@ -68,7 +68,7 @@ func InsertUser(userName, password string) (*User, error) {
 	return &user, nil
 }
 
-//获取用户信息
+// 获取用户信息
 func GetUserInfo(u interface{}) (User, error) {
 	db := common.GetDB()
 	user := User{}

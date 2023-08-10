@@ -1,14 +1,14 @@
 package controller
 
 import (
-	"TikTokLite/response"
-	"TikTokLite/service"
+	"minitok/response"
+	"minitok/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-//关注操作
+// 关注操作
 func RelationAction(ctx *gin.Context) {
 	//token := ctx.Query("token")
 	//tokenUserId, err := common.VerifyToken(token)
@@ -34,7 +34,7 @@ func RelationAction(ctx *gin.Context) {
 	response.Success(ctx, "success", nil)
 }
 
-//获取关注列表
+// 获取关注列表
 func GetFollowList(ctx *gin.Context) {
 	//token := ctx.Query("token")
 	//tokenUserId, err := common.VerifyToken(token)
@@ -59,7 +59,7 @@ func GetFollowList(ctx *gin.Context) {
 	response.Success(ctx, "success", followList)
 }
 
-//获取关注者列表
+// 获取关注者列表
 func GetFollowerList(ctx *gin.Context) {
 	/* token := ctx.Query("token")
 	tokenUserId, err := common.VerifyToken(token)

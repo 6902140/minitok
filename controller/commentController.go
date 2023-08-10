@@ -1,15 +1,15 @@
 package controller
 
 import (
-	"TikTokLite/log"
-	"TikTokLite/response"
-	"TikTokLite/service"
+	"minitok/log"
+	"minitok/response"
+	"minitok/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
-//发布评论
+// 发布评论
 func CommentAction(ctx *gin.Context) {
 	var err error
 
@@ -46,7 +46,7 @@ func CommentAction(ctx *gin.Context) {
 	response.Success(ctx, "success", commentResponse)
 }
 
-//获取评论列表
+// 获取评论列表
 func GetCommentList(ctx *gin.Context) {
 	var err error
 	video_id := ctx.Query("video_id")

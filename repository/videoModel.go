@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"TikTokLite/common"
-	"TikTokLite/log"
-	"TikTokLite/util"
 	"encoding/json"
+	"minitok/common"
+	"minitok/log"
+	"minitok/util"
 	"strconv"
 
 	"github.com/jinzhu/gorm"

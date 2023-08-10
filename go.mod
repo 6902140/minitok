@@ -1,4 +1,4 @@
-module TikTokLite
+module minitok
 
 go 1.18
 

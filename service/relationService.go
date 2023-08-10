@@ -1,10 +1,10 @@
 package service
 
 import (
-	"TikTokLite/log"
-	"TikTokLite/proto/pkg"
-	"TikTokLite/repository"
 	"errors"
+	"minitok/log"
+	"minitok/proto/pkg"
+	"minitok/repository"
 )
 
 func RelationAction(toUserId, tokenUserId int64, action string) error {

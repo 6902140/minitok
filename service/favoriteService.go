@@ -1,9 +1,9 @@
 package service
 
 import (
-	"TikTokLite/log"
-	message "TikTokLite/proto/pkg"
-	"TikTokLite/repository"
+	"minitok/log"
+	message "minitok/proto/pkg"
+	"minitok/repository"
 )
 
 func FavoriteAction(uid, vid int64, action int8) error {

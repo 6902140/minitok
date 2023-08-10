@@ -1,11 +1,11 @@
 package service
 
 import (
-	"TikTokLite/config"
-	"TikTokLite/log"
-	"TikTokLite/minioStore"
-	message "TikTokLite/proto/pkg"
-	"TikTokLite/repository"
+	"minitok/config"
+	"minitok/log"
+	"minitok/minioStore"
+	message "minitok/proto/pkg"
+	"minitok/repository"
 	"os/exec"
 	"path/filepath"
 	"strconv"

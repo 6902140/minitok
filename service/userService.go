@@ -1,10 +1,10 @@
 package service
 
 import (
-	"TikTokLite/common"
-	message "TikTokLite/proto/pkg"
-	"TikTokLite/repository"
 	"errors"
+	"minitok/common"
+	message "minitok/proto/pkg"
+	"minitok/repository"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -50,7 +50,7 @@ func UserLogin(userName, password string) (*message.DouyinUserLoginResponse, err
 	return loginResponse, nil
 }
 
-//获取登录用户的信息
+// 获取登录用户的信息
 func UserInfo(userID int64) (*message.DouyinUserResponse, error) {
 	info, err := repository.GetUserInfo(userID)
 	if err != nil {

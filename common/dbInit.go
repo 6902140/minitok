@@ -1,10 +1,10 @@
-//package repository
+// package repository
 package common
 
 import (
-	"TikTokLite/config"
-	"TikTokLite/log"
 	"fmt"
+	"minitok/config"
+	"minitok/log"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"

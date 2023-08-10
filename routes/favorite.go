@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"TikTokLite/common"
-	"TikTokLite/controller"
+	"minitok/common"
+	"minitok/controller"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,21 +1,21 @@
 package main
 
 import (
-	"TikTokLite/common"
-	"TikTokLite/config"
-	"TikTokLite/log"
-	"TikTokLite/minioStore"
-	"TikTokLite/routes"
+	"minitok/common"
+	"minitok/config"
+	"minitok/log"
+	"minitok/minioStore"
+	"minitok/routes"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	MinitokInit() //初始化项目
 	defer common.CloseDataBase()
 	defer common.CloseRedis()
 	defer log.Sync()
 
+	MinitokInit() //初始化项目
 	r := gin.Default()
 	r = routes.SetRoute(r)
 	r.Run()
