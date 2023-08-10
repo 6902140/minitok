@@ -8,3 +8,5 @@ sudo docker rmi minitok_tiktoklite
 
 # 执行 docker-compose up
 sudo docker-compose up
+
+# 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

@@ -13,6 +13,9 @@
 - 项目部署 `docker` `docker-compose`
 - 其他工具 `FFmpeg`
 
+项目概览：
+![](./imgs/onefetch.jpg)
+
 ### 快速上手启动：
 
 首先配置好`docker`以及`docker-compose`;
