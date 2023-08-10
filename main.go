@@ -1,18 +1,18 @@
 package main
 
 import (
-	"minitok/common"
 	"minitok/config"
 	"minitok/log"
-	"minitok/minioStore"
 	"minitok/routes"
+	"minitok/storage"
+	"minitok/usal"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	defer common.CloseDataBase()
-	defer common.CloseRedis()
+	defer usal.CloseDataBase()
+	defer usal.CloseRedis()
 	defer log.Sync()
 
 	MinitokInit() //初始化项目
@@ -24,7 +24,7 @@ func main() {
 func MinitokInit() {
 	config.LoadConfig() //加载
 	log.InitLog()
-	common.InitDatabase()
-	minioStore.InitMinio()
-	common.RedisInit()
+	usal.InitDatabase()
+	storage.InitMinio()
+	usal.RedisInit()
 }

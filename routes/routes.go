@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"minitok/common"
-	"minitok/controller"
+	"minitok/controllers"
+	"minitok/usal"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +15,7 @@ func SetRoute(r *gin.Engine) *gin.Engine {
 		CommentRoutes(douyin)
 		FavoriteRoutes(douyin)
 		RelationRoutes(douyin)
-		douyin.GET("/feed/", common.AuthWithOutMiddleware(), controller.Feed)
+		douyin.GET("/feed/", usal.AuthWithOutMiddleware(), controllers.Feed)
 	}
 
 	return r

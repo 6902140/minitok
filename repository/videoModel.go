@@ -2,8 +2,8 @@ package repository
 
 import (
 	"encoding/json"
-	"minitok/common"
 	"minitok/log"
+	"minitok/usal"
 	"minitok/util"
 	"strconv"
 
@@ -36,7 +36,7 @@ func InsertVideo(authorid int64, playurl, coverurl, title string) error {
 		PublishTime:   util.GetCurrentTime(),
 		Title:         title,
 	}
-	db := common.GetDB()
+	db := usal.GetDB()
 	err := db.Create(&video).Error
 	if err != nil {
 		return err
@@ -50,7 +50,7 @@ func GetVideoList(AuthorId int64) ([]Video, error) {
 	if err != nil {
 		return videos, err
 	}
-	db := common.GetDB()
+	db := usal.GetDB()
 	err = db.Where("author_id = ?", AuthorId).Order("video_id DESC").Find(&videos).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return videos, err
@@ -63,7 +63,7 @@ func GetVideoList(AuthorId int64) ([]Video, error) {
 
 func GetVideoListByFeed(currentTime int64) ([]Video, error) {
 	var videos []Video
-	db := common.GetDB()
+	db := usal.GetDB()
 	err := db.Where("publish_time < ?", currentTime).Limit(20).Order("video_id DESC").Find(&videos).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return videos, err
@@ -81,7 +81,7 @@ func GetVideoListByFeed(currentTime int64) ([]Video, error) {
 
 func CacheSetAuthor(videoid, authorid int64) {
 	key := strconv.FormatInt(videoid, 10)
-	err := common.CacheHSet("video", key, authorid)
+	err := usal.CacheHSet("video", key, authorid)
 	if err != nil {
 		log.Errorf("set cache error:%+v", err)
 	}
@@ -89,7 +89,7 @@ func CacheSetAuthor(videoid, authorid int64) {
 
 func CacheGetAuthor(videoid int64) (int64, error) {
 	key := strconv.FormatInt(videoid, 10)
-	data, err := common.CacheHGet("video", key)
+	data, err := usal.CacheHGet("video", key)
 	if err != nil {
 		return 0, err
 	}

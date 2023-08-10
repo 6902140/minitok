@@ -1,4 +1,4 @@
-package controller
+package controllers
 
 import (
 	"minitok/response"
@@ -18,7 +18,7 @@ func Feed(ctx *gin.Context) {
 		currentTime = util.GetCurrentTime()
 	}
 	//token := ctx.Query("token")
-	//userId, err = common.VerifyToken(token)
+	//userId, err = usal.VerifyToken(token)
 	userIds, _ := ctx.Get("UserId")
 	userId = userIds.(int64)
 

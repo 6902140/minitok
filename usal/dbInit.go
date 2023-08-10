@@ -1,5 +1,5 @@
 // 用于初始化数据库
-package common
+package usal
 
 import (
 	"fmt"

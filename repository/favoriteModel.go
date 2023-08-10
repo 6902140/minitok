@@ -2,7 +2,7 @@ package repository
 
 import (
 	"errors"
-	"minitok/common"
+	"minitok/usal"
 
 	"github.com/jinzhu/gorm"
 )
@@ -18,7 +18,7 @@ func (Favorite) TableName() string {
 }
 
 func LikeAction(uid, vid int64) error {
-	db := common.GetDB()
+	db := usal.GetDB()
 	favorite := Favorite{
 		UserId:  uid,
 		VideoId: vid,
@@ -42,7 +42,7 @@ func LikeAction(uid, vid int64) error {
 }
 
 func UnLikeAction(uid, vid int64) error {
-	db := common.GetDB()
+	db := usal.GetDB()
 	err := db.Where("user_id = ? and video_id = ?", uid, vid).Delete(&Favorite{}).Error
 	if err != nil {
 		return err
@@ -57,7 +57,7 @@ func UnLikeAction(uid, vid int64) error {
 
 func GetFavoriteList(uid int64) ([]Video, error) {
 	var videos []Video
-	db := common.GetDB()
+	db := usal.GetDB()
 	err := db.Joins("left join favorites on videos.video_id = favorites.video_id").
 		Where("favorites.user_id = ?", uid).Find(&videos).Error
 	if err == gorm.ErrRecordNotFound {

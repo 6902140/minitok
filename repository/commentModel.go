@@ -2,8 +2,8 @@ package repository
 
 import (
 	"encoding/json"
-	"minitok/common"
 	"minitok/log"
+	"minitok/usal"
 	"strconv"
 	"time"
 )
@@ -17,7 +17,7 @@ type Comment struct {
 }
 
 func CommentAdd(userId, videoId int64, comment_text string) (*Comment, error) {
-	db := common.GetDB()
+	db := usal.GetDB()
 
 	nowtime := time.Now().Format("01-02")
 	comment := Comment{
@@ -39,7 +39,7 @@ func CommentAdd(userId, videoId int64, comment_text string) (*Comment, error) {
 }
 
 func CommentDelete(videoId, comment_id int64) error {
-	db := common.GetDB()
+	db := usal.GetDB()
 	commentTemp := Comment{}
 
 	err := db.Where("comment_id = ?", comment_id).Take(&commentTemp).Error
@@ -56,9 +56,9 @@ func CommentDelete(videoId, comment_id int64) error {
 
 func CommentList(videoId int64) ([]Comment, error) {
 	var comments []Comment
-	db := common.GetDB()
+	db := usal.GetDB()
 	var err error
-	/* c := common.GetRE()
+	/* c := usal.GetRE()
 	values, _ := redis.Values(c.Do("lrange", videoId, "0", "-1"))
 	for _,v := range values{
 
@@ -110,7 +110,7 @@ func CommentList(videoId int64) ([]Comment, error) {
 
 /* func CacheSetComment(c Comment) {
 	vid := strconv.FormatInt(c.VideoId, 10)
-	err := common.CacheHSet("comment", vid, c)
+	err := usal.CacheHSet("comment", vid, c)
 	if err != nil {
 		log.Errorf("set cache error:%+v", err)
 	}
@@ -121,7 +121,7 @@ func CacheSetComment(videoId int64, c []Comment) {
 	//video_id := c1.VideoId
 
 	vid := strconv.FormatInt(videoId, 10)
-	err := common.CacheHSet("comment", vid, c)
+	err := usal.CacheHSet("comment", vid, c)
 	if err != nil {
 		log.Errorf("set cache error:%+v", err)
 	}
@@ -131,7 +131,7 @@ func CacheSetComment(videoId int64, c []Comment) {
 
 func CacheGetComment(vid int64) ([]Comment, error) {
 	key := strconv.FormatInt(vid, 10)
-	data, err := common.CacheHGet("comment", key)
+	data, err := usal.CacheHGet("comment", key)
 
 	//var comments = make([]map[string]interface{},2)
 
@@ -150,7 +150,7 @@ func CacheGetComment(vid int64) ([]Comment, error) {
 func CacheDelCommentAll(videoId int64) {
 
 	vid := strconv.FormatInt(videoId, 10)
-	err := common.CacheDelHash("comment", vid)
+	err := usal.CacheDelHash("comment", vid)
 	if err != nil {
 		log.Errorf("set cache error:%+v", err)
 	}
@@ -160,7 +160,7 @@ func CacheDelCommentAll(videoId int64) {
 
 	vid := strconv.FormatInt(videoId, 10)
 	cid := strconv.FormatInt(comment_id, 10)
-	err := common.CacheDelHash2("comment", vid, cid)
+	err := usal.CacheDelHash2("comment", vid, cid)
 	if err != nil {
 		log.Errorf("set cache error:%+v", err)
 	}

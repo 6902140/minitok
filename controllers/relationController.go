@@ -1,4 +1,4 @@
-package controller
+package controllers
 
 import (
 	"minitok/response"
@@ -11,7 +11,7 @@ import (
 // 关注操作
 func RelationAction(ctx *gin.Context) {
 	//token := ctx.Query("token")
-	//tokenUserId, err := common.VerifyToken(token)
+	//tokenUserId, err := usal.VerifyToken(token)
 	/* if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return
@@ -37,7 +37,7 @@ func RelationAction(ctx *gin.Context) {
 // 获取关注列表
 func GetFollowList(ctx *gin.Context) {
 	//token := ctx.Query("token")
-	//tokenUserId, err := common.VerifyToken(token)
+	//tokenUserId, err := usal.VerifyToken(token)
 	/* if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return
@@ -62,7 +62,7 @@ func GetFollowList(ctx *gin.Context) {
 // 获取关注者列表
 func GetFollowerList(ctx *gin.Context) {
 	/* token := ctx.Query("token")
-	tokenUserId, err := common.VerifyToken(token)
+	tokenUserId, err := usal.VerifyToken(token)
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"minitok/common"
-	"minitok/controller"
+	"minitok/controllers"
+	"minitok/usal"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,8 +10,8 @@ import (
 func FavoriteRoutes(r *gin.RouterGroup) {
 	favorite := r.Group("favorite")
 	{
-		favorite.POST("/action/", common.AuthMiddleware(), controller.FavoriteAction)
-		favorite.GET("/list/", common.AuthWithOutMiddleware(), controller.GetFavoriteList)
+		favorite.POST("/action/", usal.AuthMiddleware(), controllers.FavoriteAction)
+		favorite.GET("/list/", usal.AuthWithOutMiddleware(), controllers.GetFavoriteList)
 	}
 
 }

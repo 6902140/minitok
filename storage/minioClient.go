@@ -1,4 +1,4 @@
-package minioStore
+package storage
 
 import (
 	"github.com/minio/minio-go/v6"

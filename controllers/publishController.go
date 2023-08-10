@@ -1,4 +1,4 @@
-package controller
+package controllers
 
 import (
 	"fmt"
@@ -18,7 +18,7 @@ func PublishAction(ctx *gin.Context) {
 	// publishResponse := &message.DouyinPublishActionResponse{}
 	userId, _ := ctx.Get("UserId")
 	//token := ctx.PostForm("token")
-	//userId, err := common.VerifyToken(token)
+	//userId, err := usal.VerifyToken(token)
 	title := ctx.PostForm("title")
 	data, err := ctx.FormFile("data")
 	if err != nil {

@@ -2,8 +2,8 @@ package repository
 
 import (
 	"errors"
-	"minitok/common"
 	"minitok/log"
+	"minitok/usal"
 	"strconv"
 
 	"github.com/jinzhu/gorm"
@@ -26,7 +26,7 @@ func (Relation) TableName() string {
 }
 
 func FollowAction(userId, toUserId int64) error {
-	db := common.GetDB()
+	db := usal.GetDB()
 	relation := Relation{
 		Follow:   userId,
 		Follower: toUserId,
@@ -45,7 +45,7 @@ func FollowAction(userId, toUserId int64) error {
 }
 
 func UnFollowAction(userId, toUserId int64) error {
-	db := common.GetDB()
+	db := usal.GetDB()
 	err := db.Where("follow_id = ? and follower_id = ?", userId, toUserId).Delete(&Relation{}).Error
 	if err != nil {
 		return err
@@ -57,7 +57,7 @@ func UnFollowAction(userId, toUserId int64) error {
 }
 
 func GetFollowList(userId int64, usertype string) ([]User, error) {
-	db := common.GetDB()
+	db := usal.GetDB()
 	re := []Relation{}
 	// joinArg := "follower"
 	// if usertype == "follower" {
@@ -84,8 +84,8 @@ func GetFollowList(userId int64, usertype string) ([]User, error) {
 
 func CacheChangeUserCount(userid, op int64, ftype string) {
 	uid := strconv.FormatInt(userid, 10)
-	mutex, _ := common.GetLock("user_" + uid)
-	defer common.UnLock(mutex)
+	mutex, _ := usal.GetLock("user_" + uid)
+	defer usal.UnLock(mutex)
 	user, err := CacheGetUser(userid)
 	if err != nil {
 		log.Infof("user:%v miss cache", userid)

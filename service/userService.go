@@ -2,9 +2,9 @@ package service
 
 import (
 	"errors"
-	"minitok/common"
 	message "minitok/proto/pkg"
 	"minitok/repository"
+	"minitok/usal"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -18,7 +18,7 @@ func UserRegister(userName, password string) (*message.DouyinUserRegisterRespons
 	if err != nil {
 		return nil, err
 	}
-	token, err := common.GenToken(info.Id, userName)
+	token, err := usal.GenToken(info.Id, userName)
 	if err != nil {
 		return nil, err
 	}
@@ -39,7 +39,7 @@ func UserLogin(userName, password string) (*message.DouyinUserLoginResponse, err
 	if err != nil {
 		return nil, errors.New("password error")
 	}
-	token, err := common.GenToken(info.Id, userName)
+	token, err := usal.GenToken(info.Id, userName)
 	if err != nil {
 		return nil, err
 	}

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"minitok/common"
-	"minitok/controller"
+	"minitok/controllers"
+	"minitok/usal"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,8 +10,8 @@ import (
 func RelationRoutes(r *gin.RouterGroup) {
 	relation := r.Group("relation")
 	{
-		relation.POST("/action/", common.AuthMiddleware(), controller.RelationAction)
-		relation.GET("/follow/list/", common.AuthWithOutMiddleware(), controller.GetFollowList)
-		relation.GET("/follower/list/", common.AuthWithOutMiddleware(), controller.GetFollowerList)
+		relation.POST("/action/", usal.AuthMiddleware(), controllers.RelationAction)
+		relation.GET("/follow/list/", usal.AuthWithOutMiddleware(), controllers.GetFollowList)
+		relation.GET("/follower/list/", usal.AuthWithOutMiddleware(), controllers.GetFollowerList)
 	}
 }

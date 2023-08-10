@@ -3,9 +3,9 @@ package service
 import (
 	"minitok/config"
 	"minitok/log"
-	"minitok/minioStore"
 	message "minitok/proto/pkg"
 	"minitok/repository"
+	"minitok/storage"
 	"os/exec"
 	"path/filepath"
 	"strconv"
@@ -13,7 +13,7 @@ import (
 )
 
 func PublishVideo(userId int64, saveFile, title string) (*message.DouyinPublishActionResponse, error) {
-	client := minioStore.GetMinio()
+	client := storage.GetMinio()
 	videourl, err := client.UploadFile("video", saveFile, strconv.FormatInt(userId, 10))
 	if err != nil {
 		return nil, err

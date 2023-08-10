@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"minitok/common"
-	"minitok/controller"
+	"minitok/controllers"
+	"minitok/usal"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,7 +10,7 @@ import (
 func PublishRoutes(r *gin.RouterGroup) {
 	publish := r.Group("publish")
 	{
-		publish.POST("/action/", common.AuthMiddleware(), controller.PublishAction)
-		publish.GET("/list/", common.AuthWithOutMiddleware(), controller.GetPublishList)
+		publish.POST("/action/", usal.AuthMiddleware(), controllers.PublishAction)
+		publish.GET("/list/", usal.AuthWithOutMiddleware(), controllers.GetPublishList)
 	}
 }

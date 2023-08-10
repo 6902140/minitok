@@ -2,8 +2,8 @@ package repository
 
 import (
 	"encoding/json"
-	"minitok/common"
 	"minitok/log"
+	"minitok/usal"
 	"strconv"
 
 	"errors"
@@ -32,7 +32,7 @@ func (User) TableName() string {
 
 // 检查该用户名是否已经存在
 func UserNameIsExist(userName string) error {
-	db := common.GetDB()
+	db := usal.GetDB()
 	user := User{}
 	err := db.Where("user_name = ?", userName).Find(&user).Error
 	if err == nil {
@@ -45,7 +45,7 @@ func UserNameIsExist(userName string) error {
 
 // 创建用户
 func InsertUser(userName, password string) (*User, error) {
-	db := common.GetDB()
+	db := usal.GetDB()
 	hasedPassword, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 
 	user := User{
@@ -70,7 +70,7 @@ func InsertUser(userName, password string) (*User, error) {
 
 // 获取用户信息
 func GetUserInfo(u interface{}) (User, error) {
-	db := common.GetDB()
+	db := usal.GetDB()
 	user := User{}
 	var err error
 	switch u := u.(type) { // 根据传入的参数类型进行不同的查询
@@ -96,7 +96,7 @@ func GetUserInfo(u interface{}) (User, error) {
 
 func CacheSetUser(u User) {
 	uid := strconv.FormatInt(u.Id, 10)
-	err := common.CacheSet("user_"+uid, u)
+	err := usal.CacheSet("user_"+uid, u)
 	if err != nil {
 		log.Errorf("set cache error:%+v", err)
 	}
@@ -104,7 +104,7 @@ func CacheSetUser(u User) {
 
 func CacheGetUser(uid int64) (User, error) {
 	key := strconv.FormatInt(uid, 10)
-	data, err := common.CacheGet("user_" + key)
+	data, err := usal.CacheGet("user_" + key)
 	user := User{}
 	if err != nil {
 		return user, err

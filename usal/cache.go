@@ -1,4 +1,4 @@
-package common
+package usal
 
 import (
 	"encoding/json"
