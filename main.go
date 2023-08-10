@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	Init()
+	MinitokInit() //初始化项目
 	defer common.CloseDataBase()
 	defer common.CloseRedis()
 	defer log.Sync()
@@ -21,8 +21,8 @@ func main() {
 	r.Run()
 }
 
-func Init() {
-	config.LoadConfig()
+func MinitokInit() {
+	config.LoadConfig() //加载
 	log.InitLog()
 	common.InitDatabase()
 	minioStore.InitMinio()

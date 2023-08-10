@@ -47,15 +47,15 @@ var Config Configs
 
 func LoadConfig() {
 	viper.SetConfigFile("./config.yaml")
-	viper.ReadInConfig()
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(err)
+	Configerr := viper.ReadInConfig()
+
+	if Configerr != nil {
+		panic(Configerr)
 	}
 	path := PathConfig{
-		Videofile: viper.GetString("videofile"),
-		Logfile:   viper.GetString("logfile"),
-		Picfile:   viper.GetString("picfile"),
+		Videofile: viper.GetString("videofile_path"),
+		Logfile:   viper.GetString("logfile_path"),
+		Picfile:   viper.GetString("picfile_path"),
 	}
 
 	mysql := MysqlConfig{
@@ -90,7 +90,7 @@ func LoadConfig() {
 		Level: viper.GetString("level"),
 	}
 
-	err = util.Mkdir(path.Videofile)
+	err := util.Mkdir(path.Videofile)
 	if err != nil {
 		panic("mkdir videofile error")
 	}
