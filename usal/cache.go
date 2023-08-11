@@ -99,19 +99,21 @@ func UnLock(mutex *redsync.Mutex) error {
 /////////////////////////String类型接口////////////////////////////////////////
 
 func CacheSet(key string, data interface{}) error {
-	conn := redisClient.Get()
-	defer conn.Close()
-	value, err := json.Marshal(data)
+	conn := redisClient.Get()        //获取连接池
+	defer conn.Close()               //退出函数的时候关闭连接池
+	value, err := json.Marshal(data) //使用json序列化信息
 	if err != nil {
 		return err
 	}
 	_, err = conn.Do("SET", key, value, "EX", valueExpire)
+	//conn.Do("SET", key, value, "EX", valueExpire)使用 Redis 的SET命令将键值对存储到 Redis 中。key为键，value为对应的值，"EX"表示设置过期时间参数，valueExpire为过期时间的值（以秒为单位）
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
+// 从缓存中根据key读取数据
 func CacheGet(key string) ([]byte, error) {
 	conn := redisClient.Get()
 	defer conn.Close()

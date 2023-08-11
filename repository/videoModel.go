@@ -62,12 +62,17 @@ func GetVideoList(AuthorId int64) ([]Video, error) {
 }
 
 func GetVideoListByFeed(currentTime int64) ([]Video, error) {
+
 	var videos []Video
 	db := usal.GetDB()
+	//获取视频推送的策略是发布时间早于当前时间的20条视频，按照视频id降序排列
 	err := db.Where("publish_time < ?", currentTime).Limit(20).Order("video_id DESC").Find(&videos).Error
+	//将查询数据库得到的视频列表存入videos数组之中
+
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return videos, err
 	}
+
 	for i, v := range videos {
 		author, err := GetUserInfo(v.AuthorId)
 		CacheSetAuthor(v.Id, v.AuthorId)

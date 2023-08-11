@@ -5,7 +5,7 @@ import (
 	"minitok/config"
 	"minitok/log"
 	"minitok/response"
-	"minitok/service"
+	"minitok/services"
 	"minitok/util"
 	"path/filepath"
 	"strconv"
@@ -37,8 +37,8 @@ func PublishAction(ctx *gin.Context) {
 		response.Fail(ctx, err.Error(), nil)
 		return
 	}
-	publish, err := service.PublishVideo(userId.(int64), saveFile, title)
-	//publish, err := service.PublishVideo(userId, saveFile)
+	publish, err := services.PublishVideo(userId.(int64), saveFile, title)
+	//publish, err := services.PublishVideo(userId, saveFile)
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return
@@ -56,7 +56,7 @@ func GetPublishList(ctx *gin.Context) {
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 	}
-	list, err := service.PublishList(tokenUserId.(int64), userId)
+	list, err := services.PublishList(tokenUserId.(int64), userId)
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return

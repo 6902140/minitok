@@ -3,7 +3,7 @@ package controllers
 import (
 	"minitok/log"
 	"minitok/response"
-	"minitok/service"
+	"minitok/services"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -19,7 +19,7 @@ func UserLogin(context *gin.Context) {
 		response.Fail(context, "username or password invalid", nil)
 		return
 	}
-	loginResponse, err := service.UserLogin(userName, password)
+	loginResponse, err := services.UserLogin(userName, password)
 	//调用service包中的服务函数
 	if err != nil {
 		log.Infof("login error : %s", err)
@@ -29,15 +29,18 @@ func UserLogin(context *gin.Context) {
 	response.Success(context, "success", loginResponse)
 }
 
+// UserRegister 用户注册模块函数
 func UserRegister(context *gin.Context) {
 	var err error
 	userName := context.Query("username")
 	password := context.Query("password")
 	if len(userName) > 32 || len(password) > 32 { //最长32位字符
 		response.Fail(context, "username or password invalid", nil)
+		//用户名或者密码长度不合规则直接返回错误信息即可
 		return
 	}
-	registResponse, err := service.UserRegister(userName, password)
+	//调用services层的用户注册函数
+	registResponse, err := services.UserRegister(userName, password)
 	if err != nil {
 		log.Infof("registe error : %s", err)
 		response.Fail(context, err.Error(), nil)
@@ -64,7 +67,7 @@ func GetUserInfo(context *gin.Context) {
 		response.Fail(context, "token error", nil)
 		return
 	}
-	userinfo, err := service.UserInfo(uid)
+	userinfo, err := services.UserInfo(uid)
 	if err != nil {
 		log.Infof("get userinfo  error : %s", err)
 		response.Fail(context, err.Error(), nil)

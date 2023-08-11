@@ -1,4 +1,4 @@
-package service
+package services
 
 import (
 	"errors"
@@ -10,6 +10,7 @@ import (
 )
 
 func UserRegister(userName, password string) (*message.DouyinUserRegisterResponse, error) {
+	//查询欲注册的用户名是否已经存在
 	err := repository.UserNameIsExist(userName)
 	if err != nil {
 		return nil, err

@@ -3,7 +3,7 @@ package controllers
 import (
 	"minitok/log"
 	"minitok/response"
-	"minitok/service"
+	"minitok/services"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -37,7 +37,7 @@ func FavoriteAction(ctx *gin.Context) {
 		response.Fail(ctx, err.Error(), nil)
 		return
 	}
-	err = service.FavoriteAction(tokenUid, favInfo.VideoId, favInfo.ActionType)
+	err = services.FavoriteAction(tokenUid, favInfo.VideoId, favInfo.ActionType)
 
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
@@ -58,7 +58,7 @@ func GetFavoriteList(ctx *gin.Context) {
 		response.Fail(ctx, err.Error(), nil)
 		return
 	}
-	favList, err := service.FavoriteList(tokenUid, uid)
+	favList, err := services.FavoriteList(tokenUid, uid)
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return

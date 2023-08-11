@@ -3,7 +3,7 @@ package controllers
 import (
 	"minitok/log"
 	"minitok/response"
-	"minitok/service"
+	"minitok/services"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -37,7 +37,7 @@ func CommentAction(ctx *gin.Context) {
 		return
 	}
 
-	commentResponse, err := service.CommentAction(commentId, videoId, tokenUid, comment_text, actionType)
+	commentResponse, err := services.CommentAction(commentId, videoId, tokenUid, comment_text, actionType)
 	if err != nil {
 		log.Errorf("comment error : %s", err)
 		response.Fail(ctx, err.Error(), nil)
@@ -63,7 +63,7 @@ func GetCommentList(ctx *gin.Context) {
 		response.Fail(ctx, err.Error(), nil)
 		return
 	}
-	listResponse, err := service.CommentList(videoId)
+	listResponse, err := services.CommentList(videoId)
 	if err != nil {
 		log.Infof("list error : %s", err)
 		response.Fail(ctx, err.Error(), nil)

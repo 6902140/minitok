@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"minitok/response"
-	"minitok/service"
+	"minitok/services"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -26,7 +26,7 @@ func RelationAction(ctx *gin.Context) {
 		return
 	}
 	action := ctx.Query("action_type")
-	err = service.RelationAction(touid, tokenUserId, action)
+	err = services.RelationAction(touid, tokenUserId, action)
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return
@@ -51,7 +51,7 @@ func GetFollowList(ctx *gin.Context) {
 		response.Fail(ctx, err.Error(), nil)
 		return
 	}
-	followList, err := service.RelationFollowList(uid, tokenUserId)
+	followList, err := services.RelationFollowList(uid, tokenUserId)
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return
@@ -76,7 +76,7 @@ func GetFollowerList(ctx *gin.Context) {
 		response.Fail(ctx, err.Error(), nil)
 		return
 	}
-	followerList, err := service.RelationFollowerList(uid, tokenUserId)
+	followerList, err := services.RelationFollowerList(uid, tokenUserId)
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return

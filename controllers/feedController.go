@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"minitok/response"
-	"minitok/service"
+	"minitok/services"
 	"minitok/util"
 	"strconv"
 
@@ -26,8 +26,10 @@ func Feed(ctx *gin.Context) {
 		response.Fail(ctx, err.Error(), nil)
 		return
 	}
-	feedList, err := service.GetFeedList(currentTime, userId)
-	if err != nil {
+
+	//调用service层的GetFeedList函数获取视频推送信息
+	feedList, err := services.GetFeedList(currentTime, userId)
+	if err != nil { //获取视频失败时返回信息
 		response.Fail(ctx, err.Error(), nil)
 	}
 	response.Success(ctx, "success", feedList)
