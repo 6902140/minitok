@@ -6,9 +6,9 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - "./TikTokLite.sql:/docker-entrypoint-initdb.d/1_TikTokLite.sql"
+      - "./Minitok.sql:/docker-entrypoint-initdb.d/1_Minitok.sql"
     environment:
-      - MYSQL_DATABASE=TikTokLite
+      - MYSQL_DATABASE=Minitok
       - MYSQL_USER=user
       - MYSQL_PASSWORD=123
       - MYSQL_RANDOM_ROOT_PASSWORD="yes" 
@@ -26,7 +26,7 @@ services:
     volumes:
       - ./redis.conf:/etc/redis/redis.conf
     command: "redis-server /etc/redis/redis.conf"
-  tiktoklite:
+  minitok:
     build: 
       context: .
       dockerfile : ./Dockerfile
@@ -38,4 +38,4 @@ services:
       - mysql
       - minio
       - redis
-    command: ["./wait-for.sh", "mysql:3306","--", "/apps/TiktokLite" ]
+    command: ["./wait-for.sh", "mysql:3306","--", "/apps/Minitok" ]

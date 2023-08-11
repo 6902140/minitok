@@ -22,3 +22,5 @@
 
 然后使用命令`sudo docker-compose up`快速构建部署运行项目
 
+(如果项目没有出现`[GIN-debug] Listening and serving HTTP on :8080)`建议重新运行`sudo docker-compose up`指令
+
