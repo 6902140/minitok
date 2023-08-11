@@ -58,24 +58,16 @@ func CommentList(videoId int64) ([]Comment, error) {
 	var comments []Comment
 	db := usal.GetDB()
 	var err error
-	/* c := usal.GetRE()
-	values, _ := redis.Values(c.Do("lrange", videoId, "0", "-1"))
-	for _,v := range values{
-
-	} */
 
 	comments, _ = CacheGetComment(videoId)
 	log.Infof("comments-------------------------:%+v\n", comments)
 
-	/* if err == nil {
-		return comments, nil
-	} */
 	if comments != nil {
 		return comments, nil
 	}
 
 	err = db.Where("video_id = ?", videoId).Order("comment_id DESC").Find(&comments).Error
-
+	//查询所有评论进行返回
 	CacheSetComment(videoId, comments)
 	log.Infof("comments:%+v", comments)
 
@@ -86,39 +78,7 @@ func CommentList(videoId int64) ([]Comment, error) {
 
 }
 
-// func GetVideoInfo(v interface{}) (*Video, error) {
-// 	db := GetDB()
-// 	video := Video{}
-// 	err := db.Where("video_id = ?", v).Find(&video).Error
-// 	if err != nil {
-// 		return nil, errors.New("video error")
-// 	}
-// 	return &video, err
-// }
-
-// //根据user_id找到所有的用户信息
-// func GetUser(v interface{}) (*User, error) {
-// 	db := GetDB()
-// 	var user User
-// 	err := db.Where("user_id = ?", v).Find(&user).Error
-// 	if err != nil {
-// 		return nil, errors.New("user error")
-// 	}
-// 	return &user, nil
-
-// }
-
-/* func CacheSetComment(c Comment) {
-	vid := strconv.FormatInt(c.VideoId, 10)
-	err := usal.CacheHSet("comment", vid, c)
-	if err != nil {
-		log.Errorf("set cache error:%+v", err)
-	}
-} */
-
 func CacheSetComment(videoId int64, c []Comment) {
-	//for _, c1 := range c {
-	//video_id := c1.VideoId
 
 	vid := strconv.FormatInt(videoId, 10)
 	err := usal.CacheHSet("comment", vid, c)

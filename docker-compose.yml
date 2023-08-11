@@ -6,7 +6,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - "./Minitok.sql:/docker-entrypoint-initdb.d/1_Minitok.sql"
+      - "./scripts/Minitok.sql:/docker-entrypoint-initdb.d/1_Minitok.sql"
     environment:
       - MYSQL_DATABASE=Minitok
       - MYSQL_USER=user
@@ -24,7 +24,7 @@ services:
     ports:
       - 6379:6379
     volumes:
-      - ./redis.conf:/etc/redis/redis.conf
+      - ./scripts/redis.conf:/etc/redis/redis.conf
     environment:
       - vm.overcommit_memory=1
     command: "redis-server /etc/redis/redis.conf"
@@ -35,7 +35,7 @@ services:
     ports:
      - "8080:8080"
     volumes:
-      - ./wait-for.sh:/apps/wait-for.sh
+      - ./scripts/wait-for.sh:/apps/wait-for.sh
     depends_on:
       - mysql
       - minio
