@@ -14,17 +14,14 @@ func main() {
 	defer usal.CloseDataBase()
 	defer usal.CloseRedis()
 	defer log.Sync()
-
-	MinitokInit() //初始化项目
-	rou := gin.Default()
-	rou = routes.SetRoute(rou)
-	rou.Run()
-}
-
-func MinitokInit() {
-	config.LoadConfig() //加载
+	//初始化项目配置
+	config.LoadConfig() //加载配置信息
 	log.InitLog()
 	usal.InitDatabase()
 	storage.InitMinio()
 	usal.RedisInit()
+
+	rou := gin.Default()
+	rou = routes.SetRoute(rou)
+	rou.Run()
 }
