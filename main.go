@@ -10,18 +10,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
-	defer usal.CloseDataBase()
-	defer usal.CloseRedis()
-	defer log.Sync()
+func init() {
 	//初始化项目配置
 	config.LoadConfig() //加载配置信息
-	log.InitLog()
-	usal.InitDatabase()
-	storage.InitMinio()
-	usal.RedisInit()
+	log.InitLog()       //初始化日志系统
+	usal.InitDatabase() //初始化数据库
+	storage.InitMinio() //初始化minIO对象存储系统
+	usal.RedisInit()    //初始化redis缓存
+}
 
-	rou := gin.Default()
-	rou = routes.SetRoute(rou)
+func main() {
+	defer usal.CloseDataBase() //defer 数据库的关闭
+	defer usal.CloseRedis()    //redis数据库的关闭
+	defer log.Sync()           //Sync方法用于将缓冲的日志条目刷新到底层的io.Writer接口。
+
+	rou := gin.Default()       //获得gin的Engine
+	rou = routes.SetRoute(rou) //设置路由和绑定处理函数
 	rou.Run()
 }

@@ -35,7 +35,7 @@ func InitDatabase() {
 }
 
 func CloseDataBase() {
-	err := DataBase.Close()
+	err := DataBase.Close() //调用gorm的接口对数据库的连接进行关闭
 	if err != nil {
 		return
 	}
