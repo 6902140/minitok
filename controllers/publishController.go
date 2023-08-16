@@ -15,12 +15,10 @@ import (
 
 // 视频发布
 func PublishAction(ctx *gin.Context) {
-	// publishResponse := &message.DouyinPublishActionResponse{}
-	userId, _ := ctx.Get("UserId")
-	//token := ctx.PostForm("token")
-	//userId, err := usal.VerifyToken(token)
-	title := ctx.PostForm("title")
-	data, err := ctx.FormFile("data")
+	userId, _ := ctx.Get("UserId") //从之前的函数获取userid
+
+	title := ctx.PostForm("title")    //返回请求中名为"title"的表单字段的值。
+	data, err := ctx.FormFile("data") //从HTTP POST请求中获取上传的文件。
 	if err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return
@@ -29,10 +27,11 @@ func PublishAction(ctx *gin.Context) {
 
 	finalName := fmt.Sprintf("%s_%s", util.RandomString(), filename)
 	videoPath := config.GetConfig().Path.Videofile
-	saveFile := filepath.Join(videoPath, finalName)
+	saveFile := filepath.Join(videoPath, finalName) //结合生成最终的文件地址
 
-	log.Info("saveFile:", saveFile)
+	log.Info("saveFile:", saveFile) //打印日志输出相关信息
 
+	//将上传的文件保存到指定的容器的地址
 	if err := ctx.SaveUploadedFile(data, saveFile); err != nil {
 		response.Fail(ctx, err.Error(), nil)
 		return
