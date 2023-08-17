@@ -26,16 +26,13 @@ func LikeAction(uid, vid int64) error {
 	err := db.Where("user_id = ? and video_id = ?", uid, vid).Find(&Favorite{}).Error
 	if err != gorm.ErrRecordNotFound {
 		return errors.New("you have liked this video")
-	}
-	err = db.Create(&favorite).Error
+	} //逻辑上不可以重复点赞同一个作品
+	err = db.Create(&favorite).Error //未找到点赞记录则在点赞表中创建一条新记录
 	if err != nil {
 		return err
 	}
 	authorid, _ := CacheGetAuthor(vid)
-	// go func() {
-	// 	CacheChangeUserCount(uid, add, "like")
-	// 	CacheChangeUserCount(authorid, add, "liked")
-	// }()
+
 	go CacheChangeUserCount(uid, add, "like")
 	go CacheChangeUserCount(authorid, add, "liked")
 	return nil

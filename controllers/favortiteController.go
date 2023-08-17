@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 一次点赞所必须的参数
 type FavActionParams struct {
 	// 暂时没 user_id ，因为客户端出于安全考虑没给出
 	Token      string `form:"token" binding:"required"`
