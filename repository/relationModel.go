@@ -57,6 +57,8 @@ func UnFollowAction(userId, toUserId int64) error {
 }
 
 func GetFollowList(userId int64, usertype string) ([]User, error) {
+	log.Debug("try to get FollowerList!")
+
 	db := usal.GetDB()        //获得唯一数据库
 	relations := []Relation{} //用于存储用户关注的列表
 
