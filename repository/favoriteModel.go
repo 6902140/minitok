@@ -8,7 +8,7 @@ import (
 )
 
 type Favorite struct {
-	Id      int64 `gorm:"column:favorite_id; primary_key;"`
+	Id      int64 `gorm:"column:favorite_id; primary_key;"` //这是在gorm创建数据表时的主键
 	UserId  int64 `gorm:"column:user_id"`
 	VideoId int64 `gorm:"column:video_id"`
 }
@@ -55,6 +55,7 @@ func UnLikeAction(uid, vid int64) error {
 func GetFavoriteList(uid int64) ([]Video, error) {
 	var videos []Video
 	db := usal.GetDB()
+	//使用gorm框架提供的接口查询所有被uid用户所指定的用户点赞过的视频
 	err := db.Joins("left join favorites on videos.video_id = favorites.video_id").
 		Where("favorites.user_id = ?", uid).Find(&videos).Error
 	if err == gorm.ErrRecordNotFound {
@@ -62,6 +63,7 @@ func GetFavoriteList(uid int64) ([]Video, error) {
 	} else if err != nil {
 		return nil, err
 	}
+	//填写作者id
 	for i, v := range videos {
 		author, err := GetUserInfo(v.AuthorId)
 		if err != nil {
