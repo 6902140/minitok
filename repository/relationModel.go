@@ -57,27 +57,30 @@ func UnFollowAction(userId, toUserId int64) error {
 }
 
 func GetFollowList(userId int64, usertype string) ([]User, error) {
-	db := usal.GetDB()
-	re := []Relation{}
-	// joinArg := "follower"
-	// if usertype == "follower" {
-	// 	joinArg = "follow"
-	// }
-	// err := db.Joins("left join relations on users.user_id = relations."+joinArg+"_id").
-	// 	Where("relations."+usertype+"_id = ?", userId).Find(&list).Error
-	err := db.Where("relations."+usertype+"_id = ?", userId).Find(&re).Error
+	db := usal.GetDB()        //获得唯一数据库
+	relations := []Relation{} //用于存储用户关注的列表
+
+	err := db.Where("relations."+usertype+"_id = ?", userId).Find(&relations).Error //用于填充relations列表
 	if err == gorm.ErrRecordNotFound {
 		return []User{}, nil
 	} else if err != nil {
 		return nil, err
 	}
-	list := make([]User, len(re))
-	for i, r := range re {
-		uid := r.Follow
+
+	numOfRelations := len(relations)
+	list := make([]User, numOfRelations)
+
+	for i, r := range relations {
+		uid := int64(0)
 		if usertype == "follow" {
 			uid = r.Follower
+		} else {
+			uid = r.Follow
 		}
-		list[i], _ = GetUserInfo(uid)
+		list[i], err = GetUserInfo(uid)
+		if err != nil {
+			log.Debug("get user info err AT GetFollowerlist !")
+		}
 	}
 	return list, nil
 }
