@@ -4,14 +4,14 @@
  Source Server         : docker
  Source Server Type    : MySQL
  Source Server Version : 80029
- Source Host           : 192.168.1.12:3306
- Source Schema         : TikTokLite
+ Source Host           : 192.168.0.101:3306
+ Source Schema         : Minitok
 
  Target Server Type    : MySQL
  Target Server Version : 80029
  File Encoding         : 65001
 
- Date: 09/06/2022 14:52:30
+ Date: 09/08/2023 18:43:34
 */
 
 SET NAMES utf8mb4;
