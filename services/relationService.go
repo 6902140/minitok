@@ -3,7 +3,7 @@ package services
 import (
 	"errors"
 	"minitok/log"
-	"minitok/proto/pkg"
+	message "minitok/proto/pkg"
 	"minitok/repository"
 )
 
@@ -56,7 +56,7 @@ func RelationFollowerList(userId int64, tokenUserId int64) (*message.DouyinRelat
 	if err != nil {
 		return nil, err
 	}
-	log.Infof("user:%v, followerList:%+v", userId, followList)
+	log.Infof("-user:%v, followerList:%+v-?", userId, followList)
 	list, err := tokenFollowList(tokenUserId)
 	if err != nil {
 		return nil, err
