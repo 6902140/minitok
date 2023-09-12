@@ -1,3 +1,5 @@
+// DO NOT EDIT
+
 package errno
 
 import (
@@ -5,50 +7,36 @@ import (
 	"fmt"
 )
 
-const (
-	SuccessCode                = 0
-	ServiceErrCode             = 10001
-	ParamErrCode               = 10002
-	UserAlreadyExistErrCode    = 10003
-	AuthorizationFailedErrCode = 10004
-	UserNotRegisterCode        = 1005
-)
-
 type ErrNo struct {
-	ErrCode int64
-	ErrMsg  string
+	ErrorCode int64
+	ErrorMsg  string
 }
 
 func (e ErrNo) Error() string {
-	return fmt.Sprintf("err_code=%d, err_msg=%s", e.ErrCode, e.ErrMsg)
+	return fmt.Sprintf("error code: %d, error msg: %s", e.ErrorCode, e.ErrorMsg)
 }
 
 func NewErrNo(code int64, msg string) ErrNo {
-	return ErrNo{code, msg}
+	return ErrNo{
+		ErrorCode: code,
+		ErrorMsg: msg,
+	}
 }
 
 func (e ErrNo) WithMessage(msg string) ErrNo {
-	e.ErrMsg = msg
+	e.ErrorMsg = msg
 	return e
 }
 
-var (
-	Success                = NewErrNo(SuccessCode, "Success")
-	ServiceErr             = NewErrNo(ServiceErrCode, "Service is unable to start successfully")
-	ParamErr               = NewErrNo(ParamErrCode, "Wrong Parameter has been given")
-	UserAlreadyExistErr    = NewErrNo(UserAlreadyExistErrCode, "User already exists")
-	AuthorizationFailedErr = NewErrNo(AuthorizationFailedErrCode, "Authorization failed")
-	UserNotRegisterErr     = NewErrNo(UserNotRegisterCode, "User not register")
-)
-
-// ConvertErr convert error to Errno
+// ConvertErr convert error to ErrNo
+// in Default user ServiceErrorCode
 func ConvertErr(err error) ErrNo {
-	Err := ErrNo{}
-	if errors.As(err, &Err) {
-		return Err
+	errno := ErrNo{}
+	if errors.As(err, &errno) {
+		return errno
 	}
 
-	s := ServiceErr
-	s.ErrMsg = err.Error()
+	s := ServiceError
+	s.ErrorMsg = err.Error()
 	return s
 }
